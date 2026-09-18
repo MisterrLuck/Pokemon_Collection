@@ -4,6 +4,7 @@
 from flask import Flask, request, render_template, make_response, redirect, abort, url_for
 import os
 from database import db_session
+from models import User, Card
 
 app = Flask(__name__)
 
@@ -21,12 +22,15 @@ def home():
 
 @app.route("/new", methods=["GET", "POST"])
 def new_card():
+    if request.method == "POST":
+       pass 
+
     return render_template("new_card.html")
 
 @app.route("/hello")
 @app.route("/hello/<name>")
 def hello(name=None):
-    return render_template("hello.html", person=name)
+    return render_template("hello.html", username=name)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -35,7 +39,8 @@ def login():
     # Submitted login details
     if request.method == "POST":
         user = request.form["username"]
-        if user in ["Lizzy", "Josh", "Victoria"]:
+        # Filters the users in the database by this name
+        if len(db_session.query(User).filter_by(name=user).all()):
             # I want to change this to use url_for or smth
             temp = render_template("hello.html", username=user)
             return temp

@@ -3,10 +3,17 @@
 {% block title %}Add New Card{% endblock %}
 
 {% block content %}
+
 <h1>Add New Card</h1>
 <form method="POST">
-		<p>Name<input type="text" name="name" /></p>
-		<p><input type="submit" value="Submit" /></p>
+	<p>Name<input type="text" name="name" /></p>
+	<p>Number: <input type="number" name="first_num" /> / <input type="number" name="second_num" /></p>
+
+	<select name="set">
+		<option value="chaos-rising">Chaos Rising</option>
+		<option value="scarlet-violet">Scarlet Violet</option>
+	</select>
+	<p><input type="submit" value="Submit" /></p>
 </form>
 
 {% endblock %}
