@@ -1,33 +1,37 @@
 # Database models ??
 
-# the database that was created in app.py
-from app import db 
-from flask_login import UserMixin
-from datetime import datetime
+from sqlalchemy import Column, Integer, String
+from database import Base
 
-# These are the databases I think
-# inheriting the database classes or smth
-
-class User(UserMixin, db.Model):
+class User(Base):
     __tablename__ = "users"
-    id = db.Column(db.Integer, primary_key=True)
-    username = db.Column(db.String(80), unique=True, nullable=False)
-    email = db.Column(db.String(120), unique=True, nullable=False)
-    password_hash = db.Column(db.String(256), nullable=False)
-    articles = db.relationship("Article", backref="author", lazy=True)
+    id = Column(Integer, primary_key=True)
+    name = Column(String(80), unique=True, nullable=False)
+    #password_hash = Column(String(256), nullable=False)
 
-# I think I change this to "Card" and provide details on the pokemon card
-class Article(db.Model):
-    __tablename__ = "articles"
-    id = db.Column(db.Integer, primary_key=True)
-    title = db.Column(db.String(200), nullable=False)
-    slug = db.Column(db.String(200), unique=True, nullable=False)
-    body = db.Column(db.Text, nullable=False)
-    published_at = db.Column(db.DateTime, default=datetime.utcnow)
-    is_published = db.Column(db.Boolean, default=True)
-    author_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
-    
+    def __init__(self, name=None):
+        self.name = name
+
     def __repr__(self):
-        return f"<Article {self.title}>"
+        return f"<User {self.name!r}>"
 
+class Card(Base):
+    __tablename__ = "cards"
+    id = Column(Integer, primary_key=True)
+    name = Column(String(20))
+    # type: full art, holo, reverse holo, regular, ex
+    # number out of number
+    first_num = Column(Integer)
+    second_num = Column(Integer)
+    # set: chaos rising, scarlet violet, etc. These have symbols too
+    count = Column(Integer)
+    # image - add a web scraper that searches for the images based on the information
 
+    def __init__(self, name=None, first=0, second=0, count=1):
+        self.name = name
+        self.count = count
+        self.first_num = first
+        self.second_num = second
+
+    def __repr__(self):
+        return f"<Card {self.name!r} {self.first_num}/{self.second_num}>"

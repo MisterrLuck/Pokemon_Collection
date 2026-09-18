@@ -1,11 +1,7 @@
 <!DOCTYPE html>
-<html>
-  <head>
-	<title>Hello from Flask</title>
-  </head>
-
-  <body>
-  
+{% extends "base.html" %}
+{% block title %}Hello from Flask{% endblock %}
+{% block content %}
 	<h1>Hello this is a header</h1>
 
 	{% if username %}
@@ -13,6 +9,4 @@
 	{% else %}
 	  <p>Hello Unknown :(</p>
 	{% endif %}
-
-  </body>
-</html>
+{% endblock %}

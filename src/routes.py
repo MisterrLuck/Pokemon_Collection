@@ -14,12 +14,12 @@ def index():
         ).all()
     return render_template("index.html", articles=articles)
 
-@main.route("/articles/<slug>")
+@main.route("/cards/<slug>")
 def article_detail(slug):
     article = Article.query.filter_by(slug=slug, is_published=True).first_or_404()
     return render_template("article.html", article=article)
 
-@main.route("/articles/new", methods=["GET", "POST"])
+@main.route("/cards/new", methods=["GET", "POST"])
 @login_required
 def create_article():
     if request.method == "POST":
