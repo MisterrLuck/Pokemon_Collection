@@ -2,6 +2,7 @@
 # url_for is for the function
 
 from flask import Flask, request, render_template, make_response, redirect, abort, url_for
+from flask_login import LoginManager
 import os
 from database import db_session
 from models import User, Card
@@ -22,6 +23,16 @@ def home():
     cards = Card.query.all()
     return render_template("home.html", cards=cards)
 
+@app.route("/view")
+@app.route("/view/<card_id>")
+def view_card(card_id=None):
+    card = Card.query.filter_by(id=card_id).all()
+    if len(card):
+        card = card[0]
+    else:
+        card = None
+    return render_template("view_card.html", card=card)
+
 @app.route("/new", methods=["GET", "POST"])
 def new_card():
     if request.method == "POST":
@@ -37,11 +48,6 @@ def new_card():
         return redirect(url_for("home"))
 
     return render_template("new_card.html")
-
-@app.route("/hello")
-@app.route("/hello/<name>")
-def hello(name=None):
-    return render_template("hello.html", username=name)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -60,6 +66,11 @@ def login():
 
     # launches login if GET method or if error
     return render_template("login.html", error=error)
+
+@app.route("/hello")
+@app.route("/hello/<name>")
+def hello(name=None):
+    return render_template("hello.html", username=name)
 
 @app.route("/upload", methods=["GET", "POST"])
 def upload_file():

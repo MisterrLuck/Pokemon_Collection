@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}{% if card %}Viewing Card {{ card.name }}
+				 {% else %}Unknown Card{% endif %}{% endblock %}
+	
+{% block content %}
+	{% if card %}
+		<div class="card">
+			<h1>{{ card.name }}</h1>
+			<h3>{{ card.first_num }} / {{ card.second_num }}</h3>
+			<h3>Pokedex ID: {{ card.pokedex_id }}</h3>
+			<h3>From: {{ card.set_name }}</h3>
+			<h3>Count: {{ card.count }}</h3>
+		</div>
+
+	{% else %}
+		<h1>Unknown card index</h1>
+
+	{% endif %}
+{% endblock %}
