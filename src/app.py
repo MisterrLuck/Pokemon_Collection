@@ -18,7 +18,9 @@ def hello_world():
 
 @app.route("/home")
 def home():
-    return render_template("home.html")
+    # cards = Card.query.filter_by(user="Josh").all()
+    cards = Card.query.all()
+    return render_template("home.html", cards=cards)
 
 @app.route("/new", methods=["GET", "POST"])
 def new_card():
@@ -29,7 +31,7 @@ def new_card():
         second_num = request.form["second_num"]
         set_name = request.form["set"]
         count = request.form["count"]
-        card = Card(card_name, "Josh", poke_id, first_num, second_num, count)
+        card = Card(card_name, "Josh", poke_id, first_num, second_num, count, set_name)
         db_session.add(card)
         db_session.commit()
         return redirect(url_for("home"))

@@ -30,12 +30,14 @@ class Card(Base):
     count = Column(Integer)
     # image - add a web scraper that searches for the images based on the information
 
-    def __init__(self, name=None, user=None, poke_id=0, first=0, second=0, count=1):
+    def __init__(self, name=None, user=None, poke_id=0, first=0, second=0, count=1, set_name=None):
         self.name = name
+        self.user = user
         self.count = count
         self.pokedex_id = poke_id
         self.first_num = first
         self.second_num = second
+        self.set_name = set_name
 
     def __repr__(self):
         return f"<Card {self.name!r} {self.first_num}/{self.second_num}>"

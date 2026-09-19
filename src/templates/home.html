@@ -6,4 +6,16 @@
 {% block content %}
 		<a href="{{ url_for('new_card') }}">Add Card</a>
 
+		{% for card in cards %}
+			<div class="card">
+				<h2>{{ card.name }}</h2>
+				<p>{{ card.first_num }} / {{ card.second_num }}</p>
+				<p>Pokedex ID: {{ card.pokedex_id }}</p>
+				<p>From: {{ card.set_name }}</p>
+				<p>Count: {{ card.count }}</p>
+			</div>
+		{% else %}
+			<h3>No cards in your collection :(</h3>
+		{% endfor %}
+
 {% endblock %}
