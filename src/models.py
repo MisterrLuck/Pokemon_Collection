@@ -22,15 +22,18 @@ class Card(Base):
     user = Column(String(20))
     # type: full art, holo, reverse holo, regular, ex
     # number out of number
+    pokedex_id = Column(Integer)
     first_num = Column(Integer)
     second_num = Column(Integer)
     # set: chaos rising, scarlet violet, etc. These have symbols too
+    set_name = Column(String(70))
     count = Column(Integer)
     # image - add a web scraper that searches for the images based on the information
 
-    def __init__(self, name=None, user=None, first=0, second=0, count=1):
+    def __init__(self, name=None, user=None, poke_id=0, first=0, second=0, count=1):
         self.name = name
         self.count = count
+        self.pokedex_id = poke_id
         self.first_num = first
         self.second_num = second
 

@@ -23,7 +23,16 @@ def home():
 @app.route("/new", methods=["GET", "POST"])
 def new_card():
     if request.method == "POST":
-       pass 
+        card_name = request.form["name"]
+        poke_id = request.form["poke_id"]
+        first_num = request.form["first_num"]
+        second_num = request.form["second_num"]
+        set_name = request.form["set"]
+        count = request.form["count"]
+        card = Card(card_name, "Josh", poke_id, first_num, second_num, count)
+        db_session.add(card)
+        db_session.commit()
+        return redirect(url_for("home"))
 
     return render_template("new_card.html")
 
